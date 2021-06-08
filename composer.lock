@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4ef5fd7b0b73c5f6969269bb03551bb",
+    "content-hash": "864bb9a3c33106a711108ecab1b7a09f",
     "packages": [
         {
             "name": "allprogrammic/redis-client",
@@ -219,12 +219,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GSOinteractive/resque.git",
-                "reference": "e6e618f27f7f0c3abaf6b7486e89931d0c1ed7c8"
+                "reference": "d1419c320525dbb4b9e63e9c73df851eb2174a25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GSOinteractive/resque/zipball/e6e618f27f7f0c3abaf6b7486e89931d0c1ed7c8",
-                "reference": "e6e618f27f7f0c3abaf6b7486e89931d0c1ed7c8",
+                "url": "https://api.github.com/repos/GSOinteractive/resque/zipball/d1419c320525dbb4b9e63e9c73df851eb2174a25",
+                "reference": "d1419c320525dbb4b9e63e9c73df851eb2174a25",
                 "shasum": ""
             },
             "require": {
@@ -275,7 +275,7 @@
                 "docs": "https://github.com/GSOinteractive/resque/wiki",
                 "source": "https://github.com/GSOinteractive/resque/tree/master"
             },
-            "time": "2021-06-04T16:11:40+00:00"
+            "time": "2021-06-07T09:39:01+00:00"
         },
         {
             "name": "psr/cache",
@@ -3305,7 +3305,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^5.5.9 || ^7.0",
+        "php": "^7.0",
         "ext-redis": "*"
     },
     "platform-dev": [],
