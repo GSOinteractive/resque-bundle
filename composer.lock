@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "864bb9a3c33106a711108ecab1b7a09f",
+    "content-hash": "bda63cdde77a557bbe4d712acaee0bed",
     "packages": [
         {
             "name": "allprogrammic/redis-client",
@@ -3305,7 +3305,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.0",
+        "php": "^5.5.9 || ^7.0 || ^8.0",
         "ext-redis": "*"
     },
     "platform-dev": [],

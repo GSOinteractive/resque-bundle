@@ -60,7 +60,15 @@ class WorkersController extends Controller
         $results = array_combine($workers, $results);
         $results = array_filter($results);
         uasort($results, function (Worker $a, Worker $b) {
-            return $a->isIdle() <=> $b->isIdle() ?: $a->getHost() <=> $b->getHost();
+            if ($a->isIdle() == $b->isIdle()) {
+                return strcmp($a->getHost(), $b->getHost());
+            } else {
+                if ($a->isIdle() && !$b->isIdle()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
         });
 
         return $this->render('@AllProgrammicResque/workers/view.html.twig', [
