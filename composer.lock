@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e8dfd1f9ee2f2823801739a9ccc3c6b",
+    "content-hash": "e44c491e139b2171efff1cad0010c758",
     "packages": [
         {
             "name": "allprogrammic/redis-client",
@@ -215,16 +215,16 @@
         },
         {
             "name": "gsoi/resque",
-            "version": "dev-feat/replace-keys",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GSOinteractive/resque.git",
-                "reference": "4301b386dbf6deeed592b5e1694e2869fccec6c9"
+                "reference": "1dbf745c480ea5c8c2d076d6f48ca1a06b8a076f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GSOinteractive/resque/zipball/4301b386dbf6deeed592b5e1694e2869fccec6c9",
-                "reference": "4301b386dbf6deeed592b5e1694e2869fccec6c9",
+                "url": "https://api.github.com/repos/GSOinteractive/resque/zipball/1dbf745c480ea5c8c2d076d6f48ca1a06b8a076f",
+                "reference": "1dbf745c480ea5c8c2d076d6f48ca1a06b8a076f",
                 "shasum": ""
             },
             "require": {
@@ -238,6 +238,7 @@
             "replace": {
                 "allprogrammic/resque": "*"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -272,9 +273,9 @@
             ],
             "support": {
                 "docs": "https://github.com/GSOinteractive/resque/wiki",
-                "source": "https://github.com/GSOinteractive/resque/tree/feat/replace-keys"
+                "source": "https://github.com/GSOinteractive/resque/tree/master"
             },
-            "time": "2021-09-28T12:13:19+00:00"
+            "time": "2021-09-28T13:13:15+00:00"
         },
         {
             "name": "psr/cache",
