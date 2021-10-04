@@ -33,7 +33,7 @@ class QueueThresholdAlertJob extends AbstractJob
         }
 
         foreach ($this->engine->queues() as $queue) {
-            if (preg_match($options['queues'], $queue) && !preg_match($options['excludedQueues'], $queue)) {
+            if (preg_match($options['queues'], $queue) && (empty($options['excludedQueues']) || !preg_match($options['excludedQueues'], $queue))) {
                 $alertStatus = $this->engine->getBackend()->get(static::class.':'.$queue);
                 $size = $this->engine->size($queue);
                 if (!$alertStatus && $size > $options['threshold']) {
@@ -73,7 +73,7 @@ class QueueThresholdAlertJob extends AbstractJob
             if (isset($args['excludedQueues'])) {
                 $options['excludedQueues'] = $args['excludedQueues'];
             }
-            if (isset($args['threshold'])) {
+            if (isset($args['threshold']) && !empty($args['threshold'])) {
                 $options['threshold'] = filter_var($args['threshold'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'default' => null]]);
             }
         }
@@ -82,7 +82,7 @@ class QueueThresholdAlertJob extends AbstractJob
             throw new \InvalidArgumentException(sprintf('Provided argument "queues: %s" must be a valid regex pattern with delimiter.', isset($args['queues']) ? $args['queues'] : null));
         }
 
-        if (@preg_match($options['excludedQueues'], 'fake') === false) {
+        if (!empty($options['excludedQueues']) && @preg_match($options['excludedQueues'], 'fake') === false) {
             throw new \InvalidArgumentException(sprintf('Provided argument "excludedQueues: %s" must be a valid regex pattern with delimiter.', isset($args['excludedQueues']) ? $args['excludedQueues'] : null));
         }
 
