@@ -34,17 +34,17 @@ class QueueThresholdAlertJob extends AbstractJob
 
         foreach ($this->engine->queues() as $queue) {
             if (preg_match($options['queues'], $queue) && (empty($options['excludedQueues']) || !preg_match($options['excludedQueues'], $queue))) {
-                $alertStatus = $this->engine->getBackend()->get(static::class.':'.$queue);
+                $alertStatus = $this->engine->getBackend()->get('monitoring:'.static::class.':'.$queue);
                 $size = $this->engine->size($queue);
                 if (!$alertStatus && $size > $options['threshold']) {
-                    $this->engine->getBackend()->set(static::class.':'.$queue, (new \DateTimeImmutable())->format('c'));
+                    $this->engine->getBackend()->set('monitoring:'.static::class.':'.$queue, (new \DateTimeImmutable())->format('c'));
                     $this->mailSender->send('monitoring/queue-threshold-alert/above', [
                         'queue' => $queue,
                         'threshold' => $options['threshold'],
                         'size' => $size,
                     ]);
                 } else if ($alertStatus && $size <= $options['threshold']) {
-                    $this->engine->getBackend()->del(static::class.':'.$queue);
+                    $this->engine->getBackend()->del('monitoring:'.static::class.':'.$queue);
                     $this->mailSender->send('monitoring/queue-threshold-alert/below', [
                         'queue' => $queue,
                         'threshold' => $options['threshold'],
