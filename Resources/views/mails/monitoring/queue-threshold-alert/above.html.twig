@@ -1,0 +1,5 @@
+{% extends '@AllProgrammicResque/mails/base.html.twig' %}
+
+{% block content %}
+    <p>Message in queue <strong>{{ queue }}</strong> is above the threshold of {{ threshold }} with a value of {{ size }} </p>
+{% endblock %}

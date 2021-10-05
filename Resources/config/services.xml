@@ -110,5 +110,10 @@
             <argument>%resque_alert_from%</argument>
             <argument>%resque_alert_to%</argument>
         </service>
+
+        <service id="resque.service.job.monitoring.queue-threshold-alert" class="AllProgrammic\Bundle\ResqueBundle\Service\Monitoring\QueueThresholdAlertJob" public="true">
+            <argument type="service" id="resque"/>
+            <argument type="service" id="resque.service.mail_sender"/>
+        </service>
     </services>
 </container>
