@@ -73,7 +73,7 @@ class DelayedController extends Controller
         $resque->getBackend()->del($prefix);
         $resque->getBackend()->del(sprintf('recurring:%s', $job['name']));
 
-        if (!count($resque->getBackend()->keys(sprintf('delayed:%s:*', $job['timestamp'])))) {
+        if (!$resque->getBackend()->existsPattern(sprintf('delayed:%s:*', $job['timestamp']))) {
             $resque->getBackend()->zrem('delayed_queue_schedule', $job['timestamp']);
         }
 
