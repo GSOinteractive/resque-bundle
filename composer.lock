@@ -219,12 +219,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GSOinteractive/resque.git",
-                "reference": "f8df0155d8b51b2a3a5ff3da73de982c82ea96ff"
+                "reference": "7c3fd37d06a9d8722fd3be7635ef47f153e19bbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GSOinteractive/resque/zipball/f8df0155d8b51b2a3a5ff3da73de982c82ea96ff",
-                "reference": "f8df0155d8b51b2a3a5ff3da73de982c82ea96ff",
+                "url": "https://api.github.com/repos/GSOinteractive/resque/zipball/7c3fd37d06a9d8722fd3be7635ef47f153e19bbb",
+                "reference": "7c3fd37d06a9d8722fd3be7635ef47f153e19bbb",
                 "shasum": ""
             },
             "require": {
@@ -275,7 +275,7 @@
                 "docs": "https://github.com/GSOinteractive/resque/wiki",
                 "source": "https://github.com/GSOinteractive/resque/tree/master"
             },
-            "time": "2021-10-14T12:31:57+00:00"
+            "time": "2021-10-14T12:35:40+00:00"
         },
         {
             "name": "psr/cache",
