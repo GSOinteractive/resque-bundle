@@ -1,9 +1,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% set subject=subject|default('Resque Alert') %}
+{% set type=type|default('danger') %}
+{% set alertStyle="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 16px;vertical-align: top;font-weight: 500;text-align: center;border-radius: 3px 3px 0 0;margin: 0;padding: 20px;" %}
+{% if type == 'info' %}
+    {% set alertStyle=alertStyle~'color: #d9edf7;background-color: #31708f;border-color: #bce8f1;' %}
+{% elseif type == 'danger' %}
+    {% set alertStyle=alertStyle~'color: #f2dede;background-color: #a94442;border-color: #ebccd1;' %}
+{% elseif type == 'warning' %}
+    {% set alertStyle=alertStyle~'color: #fcf8e3;background-color: #8a6d3b;border-color: #faebcc;' %}
+{% elseif type == 'success' %}
+    {% set alertStyle=alertStyle~'color: #dff0d8;background-color: #3c763d;border-color: #d6e9c6;' %}
+{% endif %}
 <html xmlns="http://www.w3.org/1999/xhtml" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>{{ subject|default('Resque Alert') }}</title>
+    <title>{{ subject }}</title>
     <style type="text/css">
         img {
             max-width: 100%;
@@ -48,9 +60,6 @@
             .content-wrap {
                 padding: 10px !important;
             }
-            .invoice {
-                width: 100% !important;
-            }
         }
     </style>
 </head>
@@ -62,8 +71,8 @@
             <div class="content" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; max-width: 600px; display: block; margin: 0 auto; padding: 20px;">
                 <table class="main" width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; border-radius: 3px; background-color: #fff; margin: 0; border: 1px solid #e9e9e9;" bgcolor="#fff">
                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                        <td class="alert alert-warning" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 16px; vertical-align: top; color: #fff; font-weight: 500; text-align: center; border-radius: 3px 3px 0 0; background-color: #ce1212; margin: 0; padding: 20px;" align="center" bgcolor="#2f353f" valign="top">
-                            {{ subject|default('Resque Alert') }}
+                        <td class="alert alert-{{ type }}" style="{{ alertStyle }}" align="center" valign="top">
+                            {{ subject }}
                         </td>
                     </tr>
                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

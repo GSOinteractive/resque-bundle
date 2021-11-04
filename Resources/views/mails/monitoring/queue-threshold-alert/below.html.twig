@@ -1,5 +1,6 @@
 {% extends '@AllProgrammicResque/mails/base.html.twig' %}
-
+{% set type='success' %}
 {% block content %}
-    <p>Message in queue <strong>{{ queue }}</strong> go back below the threshold of {{ threshold }} with a value of {{ size }} </p>
+    <p>Number of messages in queue <strong>{{ queue }}</strong> is back below the threshold of <strong>{{ threshold }}</strong> with a value of <strong>{{ size }}</strong>.</p>
+    <p>Alert was first issued on <strong>{{ alertStatus.since | date }}</strong> and has been sent <strong>{{ alertStatus.sendingNumber }}</strong> times.</p>
 {% endblock %}

@@ -75,11 +75,11 @@ class MailSender
             $template
         );
 
-        $data = array_merge($data, [
+        $data = array_merge([
             'subject' => $this->subject
-        ]);
+        ], $data);
 
-        $message = (new \Swift_Message($this->subject))
+        $message = (new \Swift_Message($data['subject']))
             ->setFrom($this->from)
             ->setTo($this->to)
             ->setBody($this->renderView($template, $data), 'text/html');
