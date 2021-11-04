@@ -113,6 +113,7 @@
 
         <service id="resque.service.job.monitoring.queue-threshold-alert" class="AllProgrammic\Bundle\ResqueBundle\Service\Monitoring\QueueThresholdAlertJob" public="true">
             <argument type="service" id="resque"/>
+            <argument>%kernel.environment%%</argument>
         </service>
     </services>
 </container>
