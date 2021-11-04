@@ -56,17 +56,20 @@ class QueueThresholdAlertJob extends AbstractJob
                         'env' => $this->env,
                         'alertStatus' => $alertStatus,
                     ]);
-                // sinon si on veut des alerts lors du retour à la normal et qu'il y avait déjà une alert et que la taille est en dessous du seuil
-                } else if ($options['alertOnBackToNormal'] && $alert && $size <= $options['threshold']) {
+                // sinon s'il y avait déjà une alerte et que la taille est en dessous du seuil
+                } else if ($alert && $size <= $options['threshold']) {
                     $this->engine->getBackend()->del('monitoring:'.static::class.':'.$queue);
-                    $this->engine->sendMail('monitoring/queue-threshold-alert/below', [
-                        'subject' => sprintf('[Resque Monitoring][%s] %s size is back below %d', $this->env, $queue, $options['threshold']),
-                        'queue' => $queue,
-                        'threshold' => $options['threshold'],
-                        'size' => $size,
-                        'env' => $this->env,
-                        'alertStatus' => $alertStatus,
-                    ]);
+                    // si on veut des alerts lors du retour à la normal
+                    if ($options['alertOnBackToNormal']) {
+                        $this->engine->sendMail('monitoring/queue-threshold-alert/below', [
+                            'subject' => sprintf('[Resque Monitoring][%s] %s size is back below %d', $this->env, $queue, $options['threshold']),
+                            'queue' => $queue,
+                            'threshold' => $options['threshold'],
+                            'size' => $size,
+                            'env' => $this->env,
+                            'alertStatus' => $alertStatus,
+                        ]);
+                    }
                 }
             }
         }
