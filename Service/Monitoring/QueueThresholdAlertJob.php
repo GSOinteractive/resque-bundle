@@ -17,7 +17,7 @@ class QueueThresholdAlertJob extends AbstractJob
      */
     private $env;
 
-    public function __construct(Engine $engine, string $env)
+    public function __construct(Engine $engine, $env)
     {
         $this->engine = $engine;
         $this->env = $env;
@@ -46,29 +46,13 @@ class QueueThresholdAlertJob extends AbstractJob
                 if ((!$alert || $snooze) && $size > $options['threshold']) {
                     $alertStatus['sendingNumber']++;
                     $this->engine->getBackend()->set('monitoring:'.static::class.':'.$queue, $this->serializeAlertStatus($alertStatus));
-                    $this->engine->sendMail('monitoring/queue-threshold-alert/above', [
-                        'subject' => ($alertStatus['sendingNumber'] == 1
-                            ? sprintf('[Resque Monitoring][%s] %s size is above %d', $this->env, $queue, $options['threshold'])
-                            : sprintf('[Resque Monitoring][%s] REMINDER #%d - %s size is above %d', $this->env, $alertStatus['sendingNumber'], $queue, $options['threshold'])),
-                        'queue' => $queue,
-                        'threshold' => $options['threshold'],
-                        'size' => $size,
-                        'env' => $this->env,
-                        'alertStatus' => $alertStatus,
-                    ]);
-                // sinon s'il y avait déjà une alerte et que la taille est en dessous du seuil
+                    $this->raiseAlert($alertStatus, $queue, $options['threshold'], $size);
+                    // sinon s'il y avait déjà une alerte et que la taille est en dessous du seuil
                 } else if ($alert && $size <= $options['threshold']) {
                     $this->engine->getBackend()->del('monitoring:'.static::class.':'.$queue);
-                    // si on veut des alerts lors du retour à la normal
+                    // si on veut des alerts lors du retour à la normale
                     if ($options['alertOnBackToNormal']) {
-                        $this->engine->sendMail('monitoring/queue-threshold-alert/below', [
-                            'subject' => sprintf('[Resque Monitoring][%s] %s size is back below %d', $this->env, $queue, $options['threshold']),
-                            'queue' => $queue,
-                            'threshold' => $options['threshold'],
-                            'size' => $size,
-                            'env' => $this->env,
-                            'alertStatus' => $alertStatus,
-                        ]);
+                        $this->backToNormal($alertStatus, $queue, $options['threshold'], $size);
                     }
                 }
             }
@@ -153,5 +137,45 @@ class QueueThresholdAlertJob extends AbstractJob
     {
         $alertStatus['since'] = $alertStatus['since']->format('c');
         return json_encode($alertStatus);
+    }
+
+    /**
+     * @param array{since: \DateTimeInterface, sendingNumber: int} $alertStatus
+     * @param string $queue
+     * @param int $threshold
+     * @param int $size
+     * @return void
+     */
+    protected function raiseAlert(array $alertStatus, $queue, $threshold, $size)
+    {
+        $this->engine->sendMail('monitoring/queue-threshold-alert/above', [
+            'subject' => ($alertStatus['sendingNumber'] == 1
+                ? sprintf('[Resque Monitoring][%s] %s size is above %d', $this->env, $queue, $threshold)
+                : sprintf('[Resque Monitoring][%s] REMINDER #%d - %s size is above %d', $this->env, $alertStatus['sendingNumber'], $queue, $threshold)),
+            'queue' => $queue,
+            'threshold' => $threshold,
+            'size' => $size,
+            'env' => $this->env,
+            'alertStatus' => $alertStatus,
+        ]);
+    }
+
+    /**
+     * @param array{since: \DateTimeInterface, sendingNumber: int} $alertStatus
+     * @param string $queue
+     * @param int $threshold
+     * @param int $size
+     * @return void
+     */
+    protected function backToNormal(array $alertStatus, $queue, $threshold, $size)
+    {
+        $this->engine->sendMail('monitoring/queue-threshold-alert/below', [
+            'subject' => sprintf('[Resque Monitoring][%s] %s size is back below %d', $this->env, $queue, $threshold),
+            'queue' => $queue,
+            'threshold' => $threshold,
+            'size' => $size,
+            'env' => $this->env,
+            'alertStatus' => $alertStatus,
+        ]);
     }
 }

@@ -18,6 +18,7 @@
   "require": {
     "php": "^5.5.9 || ^7.0",
     "ext-redis": "*",
+    "ext-json": "*",
     "allprogrammic/redis-client": "1.0.x-dev",
     "gsoi/resque": "1.0.x-dev",
     "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0",
