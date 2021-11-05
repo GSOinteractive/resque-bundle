@@ -11,11 +11,11 @@ class QueueThresholdAlertJob extends AbstractJob
     /**
      * @var Engine
      */
-    private $engine;
+    protected $engine;
     /**
      * @var string
      */
-    private $env;
+    protected $env;
 
     public function __construct(Engine $engine, $env)
     {
